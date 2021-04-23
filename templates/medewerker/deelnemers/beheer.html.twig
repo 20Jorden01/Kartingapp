@@ -1,0 +1,51 @@
+{% extends 'medewerker.html.twig' %}
+
+{% block menu %}
+    <li><a href="{{ path('activiteitenoverzicht') }}">home</a></li>
+    <li><a href="{{ path('beheer') }}"><span class="badge">{{ deelnemers|length }}</span>beheer</a></li>
+    <li><a href="{{ path('soortenbeheer') }}">soorten</a></li>
+    <li class="active"><a href="{{ path('deelnemersbeheer') }}">deelnemers</a></li>
+{% endblock %}
+{% block content %}
+    <section >
+        <table class="table" style="table-layout: fixed">
+            <caption>Dit zijn alle soorten activiteiten van het kartcentrum</caption>
+            <thead>
+            <tr>
+                <td>Gebruikersnaam</td>
+                <td>Naam</td>
+                <td>Email</td>
+                <td>Telefoonnummer</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for deelnemer in deelnemers %}
+                <tr>
+                    <td>
+                        {{ deelnemer.username }}
+                    </td>
+                    <td>
+                        {{ deelnemer.voorletters }} {{ deelnemer.tussenvoegsel }} {{ deelnemer.achternaam }}
+                    </td>
+                    <td>
+                        {{ deelnemer.email }}
+                    </td>
+                    <td>
+                        {{ deelnemer.telefoon }}
+                    </td>
+                    <td title="reset wachtwoord naar qwerty">
+                        <a href="{{ path('resetPassword', {'id':deelnemer.id}) }}" >
+                            <span style="color: red;">Reset wachtwoord</span>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+
+    </section>
+
+{% endblock %}
